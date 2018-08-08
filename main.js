@@ -36,6 +36,27 @@ app.get('/newDropoff', function(req, res, next){
 	res.render('newDropoff');
 });
 
+//Add new item to donorInfo database
+app.post('/newDonorSubmit', function(req, res, next){
+	//console.log(JSON.stringify(req.body));
+	var context = {};
+	var values = [req.body.firstName, req.body.lastName, req.body.userName, req.body.password, req.body.email];
+	var sql = "INSERT INTO donorInfo (`firstName`, `lastName`, `userName`, `password`, `email`) VALUES (?)"
+	
+	mysql.pool.query(sql, [values], function(err, result){
+		if(err){
+		  next(err);
+		  return;
+		}
+		if(err){
+			console.log("Error inserting into donorInfo");
+			res.render('500', sqlResponse);
+		} else {
+			res.render('donorSuccess');
+		}
+	});
+});
+
 //Error 404 - Page not found
 app.use(function(req,res){
   res.status(404);
