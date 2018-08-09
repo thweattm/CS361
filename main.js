@@ -36,6 +36,10 @@ app.get('/newDropoff', function(req, res, next){
 	res.render('newDropoff');
 });
 
+app.get('/findALocation', function(req, res, next){
+	res.render('findALocation');
+});  
+
 app.get('/verifyTable', function(req, res, next){
 	var context = {};
 	mysql.pool.query('SELECT * FROM donorLocation', function(err, rows, fields){
