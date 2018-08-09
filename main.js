@@ -36,6 +36,72 @@ app.get('/newDropoff', function(req, res, next){
 	res.render('newDropoff');
 });
 
+app.get('/verifyTable', function(req, res, next){
+	var context = {};
+	mysql.pool.query('SELECT * FROM donorLocation', function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		var params = [];
+		for(var row in rows){
+			var addItem = {'ownerName': rows[row].ownerName,
+						'streetAddress': rows[row].streetAddress,
+						'country': rows[row].country,
+						'postalCode': rows[row].postalCode,
+						'phoneNumber': rows[row].phoneNumber,
+						'email': rows[row].email};
+						if(rows[row].verify == '1'){
+							addItem.verify = "Unverified";
+						}
+						else
+						{
+							addItem.verify = "Verified";
+						}
+
+			params.push(addItem);
+		}
+		context.results = params;
+		res.render('verifyTable', context);
+	})
+});
+
+app.post('/verify', function(req,res,next){
+	var context = {};
+	var sql = "UPDATE donorLocation SET verify = '0' WHERE verify = '1'";
+	mysql.pool.query(sql, function(err, result)
+		{
+		if (err)
+		{
+			throw err;
+		}
+		else{
+		console.log("updated");
+		res.render('verifySuccess');
+		}
+	});
+});
+
+app.post('/newDropoffSubmit', function(req, res, next){
+	var context = {};
+	var values = [req.body.ownerName, req.body.streetAddress, req.body.country, req.body.postalCode, req.body.phoneNumber, req.body.email];
+	var sql = "INSERT INTO donorLocation (`ownerName`, `streetAddress`, `country`, `postalCode`, `phoneNumber`, `email`) VALUES (?)"
+	console.log(JSON.stringify(req.body))
+	mysql.pool.query(sql, [values], function(err,result){
+		if(err){
+			next(err);
+			return;
+		}
+		if(err){
+			console.log("Error inserting into donorLocation");
+			res.render('500',sqlResponse);
+		}
+		else {
+			res.render('dropoffSuccess');
+		}
+	});
+});
+
 //Add new item to donorInfo database
 app.post('/newDonorSubmit', function(req, res, next){
 	//console.log(JSON.stringify(req.body));

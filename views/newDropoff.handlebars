@@ -8,32 +8,34 @@
 
 <div id="input">
 	<h3>Enter the information below to register your Drop off Location</h3>
-	<form action="/newUserSubmit" method="post">
-		<table id="newUserTable">
+	<form action="/newDropoffSubmit" method="POST">
+		<table id="newDonorLocationTable">
 			<tr>
-				<td class="rightAlign">First Name:</td>
-				<td class="leftAlign"><input type="text" id="firstName" required></td>
+				<td class="rightAlign">Owner Name:</td>
+				<td class="leftAlign"><input type="text" name="ownerName" required></td>
 			</tr>
 			<tr>
-				<td class="rightAlign">Last Name:</td>
-				<td class="leftAlign"><input type="text" id="lastName" required></td>
+				<td class="rightAlign">Street Address:</td>
+				<td class="leftAlign"><input type="text" name="streetAddress" required></td>
 			</tr>
 			<tr>
-				<td class="rightAlign">User Name:</td>
-				<td class="leftAlign"><input type="text" id="userName" required></td>
+				<td class="rightAlign">Country:</td>
+				<td class="leftAlign"><input type="text" name="country" required></td>
 			</tr>
 			<tr>
-				<td class="rightAlign">Password:</td>
-				<td class="leftAlign"><input type="password" id="password"></td>
+				<td class="rightAlign">Postal Code:</td>
+				<td class="leftAlign"><input type="number" name="postalCode" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Phone Number:</td>
+				<td class="leftAlign"><input type="number" name="phoneNumber" required></td>
+			</tr>
 			<tr>
 				<td class="rightAlign">Email Address:</td>
-				<td class="leftAlign"><input type="text" id="email"></td>
-			</tr>
-			<tr>
-				<td class="rightAlign"><input type="submit" id="newUser" name="newUser" value="Register"></td>
-				<td class="leftAlign"><input type="reset" id="resetForm" value="Clear Form"></td>
+				<td class="leftAlign"><input type="text" name="email" required></td>
 			</tr>
 		</table>
+		<input type = "submit" value="Submit">
 	</form>
 </div>
 

@@ -1,0 +1,41 @@
+<div>
+	<p class="leftAlign"><a href="/">Home</a></p><br>
+	<img src="logo.png">
+	<br><br>
+	<i>"Providing Eyeglasses to Those in Need"</i>
+</div>
+<div>
+<h3>Verify an Address</h3>
+
+
+<table id="donorLocationVerifyTable">
+    <tr>
+        <th>Owner Name</th>
+        <th>Street Address</th>
+        <th>Country</th>
+        <th>Postal Code</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Verified</th>
+    </tr>
+    
+    {{#if results}}
+        {{#each results}}
+            <tr>
+                <td>{{this.ownerName}}</td>
+                <td>{{this.streetAddress}}</td>
+                <td>{{this.country}}</td>
+                <td>{{this.postalCode}}</td>
+                <td>{{this.phoneNumber}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.verify}}</td>
+                <form action="/verify" method="POST">
+                <td><input type="submit" value="Verify"></td>
+                </form>
+            </tr>
+        {{/each}}
+    {{/if}}
+</table>
+</div>
+
+<script src="./script.js"></script>
