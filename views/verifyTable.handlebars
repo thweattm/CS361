@@ -1,4 +1,3 @@
-<div>
 <h3>Verify an Address</h3>
 
 
@@ -15,18 +14,16 @@
     
     {{#if results}}
         {{#each results}}
-            <tr>
-                <td>{{this.ownerName}}</td>
-                <td>{{this.streetAddress}}</td>
-                <td>{{this.country}}</td>
-                <td>{{this.postalCode}}</td>
-                <td>{{this.phoneNumber}}</td>
-                <td>{{this.email}}</td>
-                <td>{{this.verify}}</td>
-                <form action="/verify" method="POST">
-                <td><input type="submit" value="Verify"></td>
-                </form>
-            </tr>
+                <tr>
+                    <td>{{this.ownerName}}</td>
+                    <td>{{this.streetAddress}}</td>
+                    <td>{{this.country}}</td>
+                    <td>{{this.postalCode}}</td>
+                    <td>{{this.phoneNumber}}</td>
+                    <td>{{this.email}}</td>
+                    <td>{{this.verify}}</td>
+                    <td><a href="/verify?id={{this.id}}"><input type="button" name="verify" value="Verify"></a></td>
+                </tr>
         {{/each}}
     {{/if}}
 </table>
