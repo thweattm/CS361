@@ -26,6 +26,7 @@ app.get('/',function(req,res,next){
 	res.render('home');
 });
 
+
 //Load new user page
 app.get('/newUser', function(req, res, next){
 	res.render('newUser');
@@ -38,7 +39,7 @@ app.get('/newDropoff', function(req, res, next){
 
 app.get('/findALocation', function(req, res, next){
 	res.render('findALocation');
-});  
+}); 
 
 app.get('/verifyTable', function(req, res, next){
 	var context = {};
@@ -49,7 +50,8 @@ app.get('/verifyTable', function(req, res, next){
 		}
 		var params = [];
 		for(var row in rows){
-			var addItem = {'ownerName': rows[row].ownerName,
+			var addItem = {'id': rows[row].id,
+						'ownerName': rows[row].ownerName,
 						'streetAddress': rows[row].streetAddress,
 						'country': rows[row].country,
 						'postalCode': rows[row].postalCode,
@@ -65,25 +67,28 @@ app.get('/verifyTable', function(req, res, next){
 
 			params.push(addItem);
 		}
-		context.results = params;
-		res.render('verifyTable', context);
+	context.results = params;
+	res.render('verifyTable', context);
 	})
+
 });
 
-app.post('/verify', function(req,res,next){
+app.get('/verify', function(req,res,next){
 	var context = {};
-	var sql = "UPDATE donorLocation SET verify = '0' WHERE verify = '1'";
-	mysql.pool.query(sql, function(err, result)
-		{
-		if (err)
-		{
-			throw err;
-		}
-		else{
-		console.log("updated");
-		res.render('verifySuccess');
-		}
-	});
+	var sql = "UPDATE donorLocation SET verify = '0' WHERE id = ?"
+	var values = [req.query.id];
+	mysql.pool.query(sql, [values],
+	function(err, result)
+	{
+	if (err)
+	{
+		throw err;
+	}
+	else{
+	console.log("updated");
+	res.render('verifySuccess');
+	}
+});
 });
 
 app.post('/newDropoffSubmit', function(req, res, next){
