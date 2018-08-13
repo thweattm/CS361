@@ -19,6 +19,8 @@ var mysql = require('./dbcon.js');
 //Misc
 app.set('port', 9156);
 app.use(express.static('public'));
+//Request
+const request = require('request');
 
 
 //Load homepage
@@ -158,7 +160,22 @@ app.post('/newDonorSubmit', function(req, res, next){
 			console.log("Error inserting into donorInfo");
 			res.render('500', sqlResponse);
 		} else {
-			res.render('donorSuccess');
+			//console.log(JSON.stringify(result));
+			var userInfo = [];
+			//Barcode generation provided by: https://github.com/metafloor/bwip-js/wiki/Online-Barcode-API
+			var barcodeURL = "http://bwipjs-api.metafloor.com/?bcid=code128&text=361_" + result.insertId + "&includetext";
+			var addItem = {'id': result.insertId,
+						'firstName': req.body.firstName,
+						'lastName': req.body.lastName,
+						'userName': req.body.userName,
+						'email': req.body.email,
+						'barcode': barcodeURL};
+						
+			userInfo.push(addItem);
+			context.results = userInfo;
+			
+			//Load for 'user's my account'
+			res.render('donorSuccess', context);
 		}
 	});
 });

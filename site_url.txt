@@ -1,1 +1,2 @@
 http://flip1.engr.oregonstate.edu:9156
+https://tools.engr.oregonstate.edu/phpMyAdmin/index.php?server=5

@@ -13,6 +13,7 @@
     "express": "^4.15.3",
     "express-handlebars": "^3.0.0",
     "forever": "^0.15.3",
-    "mysql": "^2.14.0"
+    "mysql": "^2.14.0",
+    "request": "^2.88.0"
   }
 }
