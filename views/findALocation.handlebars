@@ -1,3 +1,31 @@
+{{#if results}}
+	<div id="input">
+		<table>
+			<tr>
+				<th>Business Name</th>
+				<th>Street Address</th>
+				<th>City</th>
+				<th>State</th>
+				<th>Postal Code</th>
+				<th>Country</th>
+				<th>Phone Number</th>
+			</tr>
+
+			{{#each results}}
+				<tr>
+					<td>{{this.businessName}}</td>
+					<td>{{this.streetAddress}}</td>
+					<td>{{this.city}}</td>
+					<td>{{this.state}}</td>
+					<td>{{this.postalCode}}</td>
+					<td>{{this.country}}</td>
+					<td>{{this.phoneNumber}}</td>
+				</tr>
+			{{/each}}
+		</table>
+	</div>
+{{/if}}
+
 <div id="map"></div>
 <script src="mapScript.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCl6S9wGmeR3WCEnNlRgM_XFGngIjjfz-o&callback=initMap"></script>
