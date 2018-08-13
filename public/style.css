@@ -1,3 +1,14 @@
+/* Always set the map height explicitly to define the size of the div
+* element that contains the map. */
+
+
+/* Optional: Makes the sample page fill the window.*/
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
 th, td {
 	text-align: center;
 	padding-left: 5px;
@@ -10,13 +21,13 @@ table {
     border-collapse: collapse;
 }
 
-div {
+/*div {
 	background-color: #d9d9d9;
 	width: 50%;
 	border-radius: 10px;
 	margin-top:10px;
 	padding:5px;
-}
+}*/
 
 #results{
 	width: 60%;
@@ -58,4 +69,8 @@ h3{
   border-right: 1px solid #333333;
   border-bottom: 1px solid #333333;
   border-left: 1px solid #CCCCCC;
+}
+
+#map {
+	height: 500px;
 }
