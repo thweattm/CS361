@@ -1,4 +1,36 @@
 <div id="input">
 	<h3>Your account has been registered</h3>
-</div>
 
+	{{#if results}}
+		<table>
+			{{#each results}}
+				<tr>
+					<td class="rightAlign"><b>Donor ID: </b></td>
+					<td class="leftAlign">{{this.id}}</td>
+				</tr>
+				<tr>
+					<td class="rightAlign"><b>First Name: </b></td>
+					<td class="leftAlign">{{this.firstName}}</td>
+				</tr>
+				<tr>
+					<td class="rightAlign"><b>Last Name: </b></td>
+					<td class="leftAlign">{{this.lastName}}</td>
+				</tr>
+				<tr>
+					<td class="rightAlign"><b>User Name: </b></td>
+					<td class="leftAlign">{{this.userName}}</td>
+				</tr>
+				<tr>
+					<td class="rightAlign"><b>Email: </b></td>
+					<td class="leftAlign">{{this.email}}</td>
+				</tr>
+				<tr>
+					<td colspan=2>
+						<br>Here is your barcode.<br>Please print & attach this with your donation.<br><br>
+						<img src='{{this.barcode}}'>
+					</td>
+				</tr>
+			{{/each}}
+		</table>
+	{{/if}}
+</div>
