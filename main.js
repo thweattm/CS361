@@ -26,7 +26,6 @@ app.get('/',function(req,res,next){
 	res.render('home');
 });
 
-
 //Load new user page
 app.get('/newUser', function(req, res, next){
 	res.render('newUser');
@@ -38,11 +37,37 @@ app.get('/newDropoff', function(req, res, next){
 });
 
 app.get('/findALocation', function(req, res, next){
-	res.render('findALocation');
+	var context = {};
+	mysql.pool.query('SELECT * FROM donorLocation WHERE verify = 0', function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		if (rows){
+			var params = [];
+			for(var row in rows){
+				var addItem = {'id': rows[row].id,
+							'businessName': rows[row].businessName,
+							'streetAddress': rows[row].streetAddress,
+							'city': rows[row].city,
+							'state': rows[row].state,
+							'country': rows[row].country,
+							'postalCode': rows[row].postalCode,
+							'phoneNumber': rows[row].phoneNumber};
+							
+				params.push(addItem);
+				}
+				
+			context.results = params;
+			}
+			
+	res.render('findALocation', context);
+	})
 }); 
 
 app.get('/verifyTable', function(req, res, next){
 	var context = {};
+	var found = 0;
 	mysql.pool.query('SELECT * FROM donorLocation WHERE verify = 1', function(err, rows, fields){
 		if(err){
 			next(err);
@@ -50,9 +75,13 @@ app.get('/verifyTable', function(req, res, next){
 		}
 		var params = [];
 		for(var row in rows){
+			found = 1;
 			var addItem = {'id': rows[row].id,
 						'ownerName': rows[row].ownerName,
+						'businessName': rows[row].businessName,
 						'streetAddress': rows[row].streetAddress,
+						'city': rows[row].city,
+						'state': rows[row].state,
 						'country': rows[row].country,
 						'postalCode': rows[row].postalCode,
 						'phoneNumber': rows[row].phoneNumber,
@@ -67,7 +96,8 @@ app.get('/verifyTable', function(req, res, next){
 
 			params.push(addItem);
 		}
-	context.results = params;
+	if (found == 1)
+		context.results = params;
 	res.render('verifyTable', context);
 	})
 
@@ -93,8 +123,9 @@ app.get('/verify', function(req,res,next){
 
 app.post('/newDropoffSubmit', function(req, res, next){
 	var context = {};
-	var values = [req.body.ownerName, req.body.streetAddress, req.body.country, req.body.postalCode, req.body.phoneNumber, req.body.email];
-	var sql = "INSERT INTO donorLocation (`ownerName`, `streetAddress`, `country`, `postalCode`, `phoneNumber`, `email`) VALUES (?)"
+	var values = [req.body.ownerName, req.body.businessName, req.body.streetAddress, req.body.city, req.body.state, 
+		req.body.country, req.body.postalCode, req.body.phoneNumber, req.body.email];
+	var sql = "INSERT INTO donorLocation (`ownerName`,`businessName`,`streetAddress`,`city`,`state`,`country`,`postalCode`,`phoneNumber`,`email`) VALUES (?)"
 	console.log(JSON.stringify(req.body))
 	mysql.pool.query(sql, [values], function(err,result){
 		if(err){
