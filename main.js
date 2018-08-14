@@ -22,14 +22,47 @@ app.use(express.static('public'));
 //Request
 const request = require('request');
 
-//Using hyperlinks 
-app.use('/warehouse', require('./warehouse.js'));
-app.use('/', require('./main.js'));
-
 //Load homepage
 app.get('/',function(req,res,next){
 	res.render('home');
 });
+
+//User landing page
+app.get('/userLanding',function(req,res,next){
+	res.render('userLanding');
+});
+
+//Warehouse landing page
+app.get('/warehouseLanding', function(req,res,next){
+	res.render('warehouseLanding');
+});
+
+//Add new glasses input form page
+app.get('/addNewGlasses', function(req,res,next){
+	res.render('addNewGlasses');
+});
+
+//Add new glasses to database
+app.post('/newGlassesSubmit', function(req, res, next){
+	console.log(JSON.stringify(req.body));
+	var values = [req.body.rePrescription, req.body.lePrescription, req.body.color, req.body.childSize];
+	var sql = "INSERT INTO warehouse (`re_prescrip`, `le_prescrip`, `color`, `childSize`) VALUES (?)"
+	
+	mysql.pool.query(sql, [values], function(err, result){
+		if(err){
+		  next(err);
+		  return;
+		}
+		if(err){
+			console.log("Error inserting into warehouse");
+			res.render('500', sqlResponse);
+		} else {
+			//console.log(JSON.stringify(result));
+			res.render('addGlassesSuccess');
+		}
+	});
+});
+
 
 //Load new user page
 app.get('/newUser', function(req, res, next){
