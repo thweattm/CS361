@@ -1,0 +1,28 @@
+<div id="input">
+	<h3>Enter the information below to add new glasses</h3>
+	<form action="/newGlassesSubmit" method="POST">
+		<table id="addNewGlasses">
+			<tr>
+				<td class="rightAlign">Right Eye Prescription:</td>
+				<td class="leftAlign"><input type="number" name="rePrescription" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Left Eye Prescription:</td>
+				<td class="leftAlign"><input type="number" name="lePrescription" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Glasses Color:</td>
+				<td class="leftAlign"><input type="text" name="color" required></td>
+			</tr>
+			<tr>
+				<td class="rightAlign">Child Size:</td>
+				<td class="leftAlign"><input type="radio" name="childSize" required></td>
+			</tr>
+			<tr>
+				<td class=rightAlign">Order Number:</td>
+				<td class="leftAlign"><input type="number" name="oNumber" required></td>
+			</tr>
+		</table>
+		<input type = "submit" value="Submit">
+	</form>
+</div>
