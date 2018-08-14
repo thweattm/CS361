@@ -1,14 +1,3 @@
-/* Always set the map height explicitly to define the size of the div
-* element that contains the map. */
-
-
-/* Optional: Makes the sample page fill the window.
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}*/
-
 th, td {
 	text-align: center;
 	padding-left: 5px;
@@ -67,6 +56,7 @@ div.links ul {
     padding: 0;
     overflow: hidden;
     background-color: #333;
+	border-radius: 10px;
 }
 div.links li {
     float: left;
