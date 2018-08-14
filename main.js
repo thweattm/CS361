@@ -22,6 +22,9 @@ app.use(express.static('public'));
 //Request
 const request = require('request');
 
+//Using hyperlinks 
+app.use('/warehouse', require('./warehouse.js'));
+app.use('/', require('./main.js'));
 
 //Load homepage
 app.get('/',function(req,res,next){
