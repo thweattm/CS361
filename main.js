@@ -145,7 +145,7 @@ app.get('/glassesShipped', function(req, res, next){
 						'lePrescription': rows[row].lePrecription,
 						'rePrescription': rows[row].rePrescription,
 						'color': rows[row].color,
-						'childSize': rows[row].childSize
+						'childSize': rows[row].childSize};
 						if(rows[row].shipped == '1'){
 							addItem.shipped = "Not Shipped";
 						}
