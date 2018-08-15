@@ -41,6 +41,10 @@ app.get('/warehouseLanding', function(req,res,next){
 app.get('/addNewGlasses', function(req,res,next){
 	res.render('addNewGlasses');
 });
+//Ship glasses
+app.get('/shippedGlasses', function(req,res,next){
+	res.render('shippedGlasses');
+});	
 
 //Add new glasses to database
 app.post('/newGlassesSubmit', function(req, res, next){
@@ -126,6 +130,40 @@ app.get('/findALocation', function(req, res, next){
 	})
 }); 
 
+app.get('/glassesShipped', function(req, res, next){
+	var context = {};
+	var found = 0;
+	mysql.pool.query('SELECT * FROM warehouse WHERE shipped = 1', function(err, rows, fields){
+		if(err){
+			next(err);
+			return;
+		}
+		var params = [];
+		for(var row in rows){
+			found = 1;
+			var addItem = {'glasses_id': rows[row].glasses_id,
+						'lePrescription': rows[row].lePrecription,
+						'rePrescription': rows[row].rePrescription,
+						'color': rows[row].color,
+						'childSize': rows[row].childSize
+						if(rows[row].shipped == '1'){
+							addItem.shipped = "Not Shipped";
+						}
+						else
+						{
+							addItem.shipped = "Shipped";
+						}
+
+			params.push(addItem);
+		}
+	if (found == 1)
+		context.results = params;
+	res.render('glassesShipped', context);
+	})
+
+});
+
+
 app.get('/verifyTable', function(req, res, next){
 	var context = {};
 	var found = 0;
@@ -163,6 +201,27 @@ app.get('/verifyTable', function(req, res, next){
 	})
 
 });
+
+
+app.get('/shipped', function(req,res,next){
+	var context = {};
+	var sql = "UPDATE warehouse SET shipped = '0' WHERE glasses_id = ?"
+	var values = [req.query.id];
+	mysql.pool.query(sql, [values],
+	function(err, result)
+	{
+	if (err)
+	{
+		throw err;
+	}
+	else{
+	console.log("updated");
+	res.render('shippedSuccess');
+	}
+});
+
+
+
 
 app.get('/verify', function(req,res,next){
 	var context = {};
