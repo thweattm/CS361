@@ -71,7 +71,7 @@ app.get('/dropoffSiteShipping', function(req,res,next){
 //Load page with shipping information
 app.post('/pickShippingLocation', function(req,res,next){
 	var context = {};
-	console.log(JSON.stringify(req.body));
+	//console.log(JSON.stringify(req.body));
 	switch (req.body.location){
 		case "boise":
 			context.label = "boiseShippingLabel.jpg";
@@ -82,7 +82,7 @@ app.post('/pickShippingLocation', function(req,res,next){
 		case "plainfield":
 			context.label = "plainfieldShippingLabel.jpg";
 	}
-	console.log(JSON.stringify(context));
+	//console.log(JSON.stringify(context));
 	res.render('shippingInfo', context);
 });
 
