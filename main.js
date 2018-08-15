@@ -219,7 +219,7 @@ app.get('/shipped', function(req,res,next){
 	res.render('shippedSuccess');
 	}
 });
-
+});
 
 
 
