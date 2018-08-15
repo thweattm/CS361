@@ -1,0 +1,34 @@
+<div id="input">
+	<h3>Verify Glasses</h3>
+	
+	{{#if results}}
+		<p>Please verify that you are choosing the correct glasses, and then select ship</p>
+
+		<table id="glassesShippedTable">
+			<tr>
+				<th>Left Eye Prescription</th>
+				<th>Right Eye Prescription</th>
+				<th>Color</th>
+				<th>Child Size</th>
+				<th>State</th>
+			</tr>
+			
+			{{#each results}}
+					<tr>
+						<td>{{this.lePrescription}}</td>
+						<td>{{this.rePrescription}}</td>
+						<td>{{this.color}}</td>
+						<td>{{this.childSize}}</td>
+						<td>{{this.state}}</td>
+						<td><a href="/shipped?id={{this.id}}"><input type="button" name="ship" value="Ship"></a></td>
+					</tr>
+			{{/each}}
+			
+		</table>
+		
+	{{else}}
+	
+		<p>All glasses have been shipped</p>
+		
+	{{/if}}
+</div>
