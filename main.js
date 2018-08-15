@@ -63,6 +63,29 @@ app.post('/newGlassesSubmit', function(req, res, next){
 	});
 });
 
+//Drop off site shipping information page
+app.get('/dropoffSiteShipping', function(req,res,next){
+	res.render('dropoffSiteShipping');
+});
+
+//Load page with shipping information
+app.post('/pickShippingLocation', function(req,res,next){
+	var context = {};
+	console.log(JSON.stringify(req.body));
+	switch (req.body.location){
+		case "boise":
+			context.label = "boiseShippingLabel.jpg";
+			break;
+		case "tulsa":
+			context.label = "tulsaShippingLabel.jpg";
+			break;
+		case "plainfield":
+			context.label = "plainfieldShippingLabel.jpg";
+	}
+	console.log(JSON.stringify(context));
+	res.render('shippingInfo', context);
+});
+
 
 //Load new user page
 app.get('/newUser', function(req, res, next){
