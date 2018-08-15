@@ -10,7 +10,7 @@
 				<th>Right Eye Prescription</th>
 				<th>Color</th>
 				<th>Child Size</th>
-				<th>State</th>
+				<th>Ship</th>
 			</tr>
 			
 			{{#each results}}
@@ -19,7 +19,7 @@
 						<td>{{this.rePrescription}}</td>
 						<td>{{this.color}}</td>
 						<td>{{this.childSize}}</td>
-						<td><a href="/shipped?id={{this.id}}"><input type="button" name="ship" value="Ship"></a></td>
+						<td><a href="/shipped?id={{this.glasses_id}}"><input type="button" name="ship" value="Ship"></a></td>
 					</tr>
 			{{/each}}
 			

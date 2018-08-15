@@ -133,7 +133,7 @@ app.get('/findALocation', function(req, res, next){
 app.get('/glassesShipped', function(req, res, next){
 	var context = {};
 	var found = 0;
-	mysql.pool.query('SELECT * FROM warehouse WHERE shipped = 1', function(err, rows, fields){
+	mysql.pool.query('SELECT * FROM warehouse WHERE shipped = 0', function(err, rows, fields){
 		if(err){
 			next(err);
 			return;
@@ -142,11 +142,11 @@ app.get('/glassesShipped', function(req, res, next){
 		for(var row in rows){
 			found = 1;
 			var addItem = {'glasses_id': rows[row].glasses_id,
-						'lePrescription': rows[row].lePrecription,
-						'rePrescription': rows[row].rePrescription,
+						'lePrescription': rows[row].le_prescrip,
+						'rePrescription': rows[row].re_prescrip,
 						'color': rows[row].color,
 						'childSize': rows[row].childSize};
-						if(rows[row].shipped == '1'){
+						if(rows[row].shipped == '0'){
 							addItem.shipped = "Not Shipped";
 						}
 						else
@@ -163,6 +163,24 @@ app.get('/glassesShipped', function(req, res, next){
 
 });
 
+app.get('/shipped', function(req,res,next){
+	var context = {};
+	console.log(req.query.id);
+	var sql = "UPDATE warehouse SET shipped = '1' WHERE glasses_id = ?"
+	var values = [req.query.id];
+	mysql.pool.query(sql, [values],
+	function(err, result)
+	{
+	if (err)
+	{
+		throw err;
+	}
+	else{
+	console.log("updated");
+	res.render('shippedSuccess');
+	}
+});
+});
 
 app.get('/verifyTable', function(req, res, next){
 	var context = {};
@@ -200,25 +218,6 @@ app.get('/verifyTable', function(req, res, next){
 	res.render('verifyTable', context);
 	})
 
-});
-
-
-app.get('/shipped', function(req,res,next){
-	var context = {};
-	var sql = "UPDATE warehouse SET shipped = '0' WHERE glasses_id = ?"
-	var values = [req.query.id];
-	mysql.pool.query(sql, [values],
-	function(err, result)
-	{
-	if (err)
-	{
-		throw err;
-	}
-	else{
-	console.log("updated");
-	res.render('shippedSuccess');
-	}
-});
 });
 
 
